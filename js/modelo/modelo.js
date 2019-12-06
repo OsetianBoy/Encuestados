@@ -20,17 +20,9 @@ Modelo.prototype = {
   obtenerUltimoId: function() {
     if (this.preguntas.length === 0){
       return 0;
-    }
-    /*} else {
+    } else {
       return this.preguntas[this.preguntas.length-1].id;
-    }*/
-    var idMasAlto = 0;
-    for(var i= 0; i<this.preguntas.length; i++){
-      if(this.preguntas[i].id> idMasAlto){
-        idMasAlto = this.preguntas[i].id;
-      }
     }
-    return idMasAlto;
   },
 
   //Guia 2 paso 1 - Funcionalidades del modelo

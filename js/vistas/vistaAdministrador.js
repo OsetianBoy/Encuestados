@@ -37,15 +37,21 @@ VistaAdministrador.prototype = {
     var nuevoItem;
     //completar
     //asignar a nuevoitem un elemento li con clase "list-group-item", id "pregunta.id" y texto "pregunta.textoPregunta"
-    nuevoItem = $('<li></li>').addClass('list-group-item').attr('id', pregunta.id).text(pregunta.textoPregunta);
-    console.log(nuevoItem);
+
+    /*nuevoItem = $('<li></li>').addClass('list-group-item').attr('id', pregunta.id).text(pregunta.textoPregunta);
+    console.log(nuevoItem);*/
+    nuevoItem = document.createElement('li');
+    nuevoItem.className  = 'list-group-item';
+    nuevoItem.id = pregunta.id;
+    nuevoItem.textContent = pregunta.textoPregunta;
+
     var interiorItem = $('.d-flex');
     var titulo = interiorItem.find('h5');
     titulo.text(pregunta.textoPregunta);
     interiorItem.find('small').text(pregunta.cantidadPorRespuesta.map(function(resp){
       return " " + resp.textoRespuesta;
     }));
-    nuevoItem.html($('.d-flex').html());
+    $(nuevoItem).html($('.d-flex').html());
     return nuevoItem;
   },
 
@@ -70,13 +76,10 @@ VistaAdministrador.prototype = {
       $('[name="option[]"]').each(function() {
         //completar
         var respuesta = $(this).val();
-        if(respuesta.length>0){
-          respuestas.push({
-            'textoRespuesta': respuesta,
-            'cantidad': 0
-          });
+        if($(this).val()){
+          respuestas.push({'textoRespuesta': respuesta, 'cantidad': 0});
         }
-      })
+      });
       contexto.limpiarFormulario();
       contexto.controlador.agregarPregunta(value, respuestas);
     });
@@ -85,10 +88,12 @@ VistaAdministrador.prototype = {
     e.botonBorrarPregunta.click(function(){
       contexto.controlador.botonBorrarPregunta()
     });
+
     e.botonEditarPregunta.click(function(){
-      var nombrePregunta = prompt("Ingrese un nuevo nombre a la pregunta");
-      contexto.controlador.botonEditarPregunta(nombrePregunta)
+      var nombrePregunta = prompt("Modifique su pregunta");
+      contexto.controlador.botonEditarPregunta(nombrePregunta);
     });
+
     e.borrarTodo.click(function(){
       contexto.modelo.borrarTodo()
     });

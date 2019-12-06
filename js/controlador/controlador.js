@@ -32,5 +32,3 @@ Controlador.prototype = {
     this.modelo.agregarVoto(pregunta, respuestaSeleccionada);
   },
 };
-
-
